@@ -16,5 +16,4 @@ interface StackoverflowAPI {
         @Query("site") site: String = "stackoverflow"
     ): Response<TotalItems>
 
-
 }

@@ -12,8 +12,6 @@ object StackoverflowInstance {
         val logging = HttpLoggingInterceptor()
         logging.setLevel(HttpLoggingInterceptor.Level.BODY)
 
-        Log.i("LoggingCheck", logging.toString())
-
         val client = OkHttpClient.Builder()
             .addInterceptor(logging)
             .build()

@@ -7,5 +7,7 @@ import retrofit2.Response
 class StackoverflowRepository {
     private val stackoverflowInstance = StackoverflowInstance.API
 
-    suspend fun getResponse(): Response<TotalItems> = stackoverflowInstance.getQuestions()
+    suspend fun getResponse(): Response<TotalItems> {
+        return stackoverflowInstance.getQuestions()
+    }
 }
