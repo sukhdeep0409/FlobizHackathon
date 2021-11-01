@@ -1,6 +1,7 @@
 package com.example.flobizhackathon.models
 
-data class Owner(
+data class Owner
+constructor (
     val accept_rate: Int,
     val display_name: String,
     val link: String,

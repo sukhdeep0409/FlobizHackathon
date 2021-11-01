@@ -1,6 +1,7 @@
 package com.example.flobizhackathon.models
 
-data class Item(
+data class Item
+constructor (
     val accepted_answer_id: Int,
     val answer_count: Int,
     val closed_date: Int,

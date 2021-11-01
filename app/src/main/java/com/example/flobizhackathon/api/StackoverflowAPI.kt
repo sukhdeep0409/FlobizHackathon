@@ -16,4 +16,12 @@ interface StackoverflowAPI {
         @Query("site") site: String = "stackoverflow"
     ): Response<TotalItems>
 
+    @GET("2.2/questions")
+    suspend fun searchTags(
+        @Query("key") key: String = API_KEY,
+        @Query("order") order: String = "desc",
+        @Query("sort") sort: String = "activity",
+        @Query("tagged") tagged: String,
+        @Query("site") site: String = "stackoverflow"
+    ): Response<TotalItems>
 }

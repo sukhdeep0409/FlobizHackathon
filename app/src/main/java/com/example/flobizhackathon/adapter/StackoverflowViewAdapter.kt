@@ -7,11 +7,10 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.flobizhackathon.databinding.StackoverflowCardBinding
 import com.example.flobizhackathon.models.Item
-import com.example.flobizhackathon.models.Owner
 import com.example.flobizhackathon.utils.loadImage
 
-class StackoverflowAdapter:
-RecyclerView.Adapter<StackoverflowAdapter.StackoverflowViewHolder>() {
+class StackoverflowViewAdapter:
+RecyclerView.Adapter<StackoverflowViewAdapter.StackoverflowViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = StackoverflowViewHolder(
         StackoverflowCardBinding.inflate(
             LayoutInflater.from(parent.context),

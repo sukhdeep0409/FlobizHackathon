@@ -4,6 +4,9 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/JetpackLibraries/hackathon/FlobizHackathon/app/src/main/res/layout/activity_main.xml" value="0.2" />
+        <entry key="..\:/JetpackLibraries/hackathon/FlobizHackathon/app/src/main/res/layout/card_tags.xml" value="0.2" />
+        <entry key="..\:/JetpackLibraries/hackathon/FlobizHackathon/app/src/main/res/layout/dialog_tag.xml" value="0.259375" />
+        <entry key="..\:/JetpackLibraries/hackathon/FlobizHackathon/app/src/main/res/layout/dialog_tags.xml" value="0.2" />
         <entry key="..\:/JetpackLibraries/hackathon/FlobizHackathon/app/src/main/res/layout/stackoverflow_card.xml" value="0.2" />
       </map>
     </option>

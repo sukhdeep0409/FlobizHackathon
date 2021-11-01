@@ -10,4 +10,8 @@ class StackoverflowRepository {
     suspend fun getResponse(): Response<TotalItems> {
         return stackoverflowInstance.getQuestions()
     }
+
+    suspend fun searchTags(tag: String): Response<TotalItems> {
+        return stackoverflowInstance.searchTags(tagged = tag)
+    }
 }

@@ -1,11 +1,9 @@
 package com.example.flobizhackathon.viewmodels
 
-import android.app.Application
-import android.util.Log
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.flobizhackathon.models.Item
+import com.example.flobizhackathon.models.TaggedCards
 import com.example.flobizhackathon.repository.StackoverflowRepository
 import kotlinx.coroutines.*
 
@@ -13,8 +11,12 @@ class StackoverflowViewModel: ViewModel() {
     private var job: Job? = null
 
     val stackoverflowQuestions: MutableLiveData<List<Item>> = MutableLiveData()
+    val stackoverflowSearchTags: MutableLiveData<List<Item>> = MutableLiveData()
+    val stackoverflowViewTags: MutableLiveData<List<String>> = MutableLiveData()
 
     fun fetchStackoverflowArticles() { displayStackoverflowArticles() }
+
+    fun fetchStackoverflowTags(tag: String) { displayStackoverflowTags(tag) }
 
     private fun displayStackoverflowArticles() {
         job = CoroutineScope(Dispatchers.IO).launch {
@@ -22,6 +24,18 @@ class StackoverflowViewModel: ViewModel() {
             withContext(Dispatchers.Main) {
                 if (response.isSuccessful) {
                     stackoverflowQuestions.value = response.body()?.items
+                    stackoverflowViewTags.value = response.body()!!.items[0].tags
+                }
+            }
+        }
+    }
+
+    private fun displayStackoverflowTags(tag: String) {
+        job = CoroutineScope(Dispatchers.IO).launch {
+            val response = StackoverflowRepository().searchTags(tag)
+            withContext(Dispatchers.Main) {
+                if (response.isSuccessful) {
+                    stackoverflowSearchTags.value = response.body()?.items
                 }
             }
         }
