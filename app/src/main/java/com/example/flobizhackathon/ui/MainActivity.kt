@@ -2,6 +2,8 @@ package com.example.flobizhackathon.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -32,6 +34,17 @@ class MainActivity : AppCompatActivity() {
 
         observeStackoverflowViewModel()
 
+        binding.searchTagQuery.addTextChangedListener(object: TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) { }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) { }
+
+            override fun afterTextChanged(editable: Editable?) {
+                filterTags(editable.toString())
+            }
+
+        })
+
         binding.filter.setOnClickListener {
             val bottomSheet = BottomSheetDialog(this)
             bottomSheet.setContentView(R.layout.dialog_tags)
@@ -57,6 +70,17 @@ class MainActivity : AppCompatActivity() {
         viewModel.stackoverflowViewTags.observe(this, { item ->
             item?.let { stackoverflowCardAdapter.differ.submitList(it) }
         })
+    }
+
+    private fun observeStackoverflowSearchedTagsViewModel() {
+        viewModel.stackoverflowSearchTags.observe(this, { item ->
+            item?.let { stackoverflowViewAdapter.differ.submitList(it) }
+        })
+    }
+
+    private fun filterTags(tags: String) {
+        viewModel.fetchStackoverflowTags(tags)
+        observeStackoverflowSearchedTagsViewModel()
     }
 
     private fun setUpRecyclerView() {
