@@ -7,9 +7,11 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.flobizhackathon.databinding.CardTagsBinding
 import com.example.flobizhackathon.models.TaggedCards
+import com.example.flobizhackathon.ui.MainActivity
 
 class StackoverflowCardAdapter:
 RecyclerView.Adapter<StackoverflowCardAdapter.CardViewHolder>() {
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = CardViewHolder(
         CardTagsBinding.inflate(
             LayoutInflater.from(parent.context),
@@ -19,7 +21,12 @@ RecyclerView.Adapter<StackoverflowCardAdapter.CardViewHolder>() {
     )
 
     override fun onBindViewHolder(holder: CardViewHolder, position: Int) {
-        holder.binding.tags.text = differ.currentList[position]
+        val tag = differ.currentList[position]
+        holder.binding.tags.text = tag
+
+        holder.binding.tags.setOnClickListener {
+            onItemClickListener?.let { it(tag) }
+        }
     }
 
     override fun getItemCount() = differ.currentList.size
@@ -28,6 +35,14 @@ RecyclerView.Adapter<StackoverflowCardAdapter.CardViewHolder>() {
     constructor(val binding: CardTagsBinding):
     RecyclerView.ViewHolder(binding.root)
 
+    //item click listener
+    private var onItemClickListener: ((String) -> Unit)? = null
+
+    fun setOnClickListener(listener: (String) -> Unit) {
+        onItemClickListener = listener
+    }
+
+    //differ callback
     private val differCallback = object: DiffUtil.ItemCallback<String>() {
         override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
             return oldItem.length == newItem.length

@@ -42,43 +42,49 @@ class MainActivity : AppCompatActivity() {
             override fun afterTextChanged(editable: Editable?) {
                 filterTags(editable.toString())
             }
-
         })
 
-        binding.filter.setOnClickListener {
-            val bottomSheet = BottomSheetDialog(this)
-            bottomSheet.setContentView(R.layout.dialog_tags)
-            bottomSheet.show()
+        binding.filter.setOnClickListener { tagsFilter() }
+    }
 
-            val dialogRecyclerView = bottomSheet.findViewById<RecyclerView>(R.id.recyclerview_tags)
-            dialogRecyclerView?.apply {
-                layoutManager = LinearLayoutManager(context)
-                adapter = stackoverflowCardAdapter
-            }
+    private fun tagsFilter() {
+        val bottomSheet = BottomSheetDialog(this)
+        bottomSheet.setContentView(R.layout.dialog_tags)
+        bottomSheet.show()
 
-            observeStackoverflowTagsViewModel()
+        val dialogRecyclerView = bottomSheet.findViewById<RecyclerView>(R.id.recyclerview_tags)
+        dialogRecyclerView?.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = stackoverflowCardAdapter
         }
+
+        stackoverflowCardAdapter.setOnClickListener {
+            filterTags(it)
+            bottomSheet.dismiss()
+        }
+
+        observeStackoverflowTagsViewModel()
     }
 
     private fun observeStackoverflowViewModel() {
-        viewModel.stackoverflowQuestions.observe(this, { item ->
-            item?.let { stackoverflowViewAdapter.differ.submitList(it) }
+        viewModel.stackoverflowQuestions.observe(this, {
+            it?.let { stackoverflowViewAdapter.differ.submitList(it) }
         })
     }
 
     private fun observeStackoverflowTagsViewModel() {
-        viewModel.stackoverflowViewTags.observe(this, { item ->
-            item?.let { stackoverflowCardAdapter.differ.submitList(it) }
+        viewModel.stackoverflowViewTags.observe(this, {
+            it?.let { stackoverflowCardAdapter.differ.submitList(it) }
         })
     }
 
     private fun observeStackoverflowSearchedTagsViewModel() {
-        viewModel.stackoverflowSearchTags.observe(this, { item ->
-            item?.let { stackoverflowViewAdapter.differ.submitList(it) }
+        viewModel.stackoverflowSearchTags.observe(this, {
+            it?.let { stackoverflowViewAdapter.differ.submitList(it) }
         })
     }
 
-    private fun filterTags(tags: String) {
+    fun filterTags(tags: String) {
         viewModel.fetchStackoverflowTags(tags)
         observeStackoverflowSearchedTagsViewModel()
     }

@@ -3,7 +3,6 @@ package com.example.flobizhackathon.viewmodels
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.flobizhackathon.models.Item
-import com.example.flobizhackathon.models.TaggedCards
 import com.example.flobizhackathon.repository.StackoverflowRepository
 import kotlinx.coroutines.*
 
@@ -16,7 +15,7 @@ class StackoverflowViewModel: ViewModel() {
 
     fun fetchStackoverflowArticles() { displayStackoverflowArticles() }
 
-    fun fetchStackoverflowTags(tag: String) { displayStackoverflowTags(tag) }
+    fun fetchStackoverflowTags(tag: String) { displayStackoverflowSearchTags(tag) }
 
     private fun displayStackoverflowArticles() {
         job = CoroutineScope(Dispatchers.IO).launch {
@@ -30,7 +29,7 @@ class StackoverflowViewModel: ViewModel() {
         }
     }
 
-    private fun displayStackoverflowTags(tag: String) {
+    private fun displayStackoverflowSearchTags(tag: String) {
         job = CoroutineScope(Dispatchers.IO).launch {
             val response = StackoverflowRepository().searchTags(tag)
             withContext(Dispatchers.Main) {
