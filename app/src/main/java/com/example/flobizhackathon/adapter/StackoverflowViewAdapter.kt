@@ -1,5 +1,7 @@
 package com.example.flobizhackathon.adapter
 
+import android.annotation.SuppressLint
+import android.icu.number.NumberFormatter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
@@ -19,14 +21,18 @@ RecyclerView.Adapter<StackoverflowViewAdapter.StackoverflowViewHolder>() {
         )
     )
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: StackoverflowViewHolder, position: Int) {
         val currentQuestion = differ.currentList[position]
         val currentView = holder.binding
 
         currentView.displayName.text = currentQuestion.owner.display_name
-        currentView.title.text = currentQuestion.title
-        currentView.answerCount.text = currentQuestion.answer_count.toString()
+        currentView.title.text = "${currentQuestion.title} ..."
         currentView.profile.loadImage(currentQuestion.owner.profile_image)
+
+        currentView.root.setOnClickListener {
+            onItemClickListener?.let { it(currentQuestion) }
+        }
     }
 
     override fun getItemCount() = differ.currentList.size
@@ -35,6 +41,14 @@ RecyclerView.Adapter<StackoverflowViewAdapter.StackoverflowViewHolder>() {
     constructor(val binding: StackoverflowCardBinding):
     RecyclerView.ViewHolder(binding.root)
 
+    //on click listener
+    private var onItemClickListener: ((Item) -> Unit)? = null
+
+    fun setOnClickListener(listener: (Item) -> Unit) {
+        onItemClickListener = listener
+    }
+
+    //differ call back
     private val differCallback = object: DiffUtil.ItemCallback<Item>() {
         override fun areItemsTheSame(oldItem: Item, newItem: Item): Boolean {
             return oldItem.question_id == newItem.question_id

@@ -1,5 +1,9 @@
 package com.example.flobizhackathon.models
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+import kotlinx.parcelize.RawValue
+
 data class Item
 constructor (
     val accepted_answer_id: Int,
@@ -12,7 +16,7 @@ constructor (
     val last_activity_date: Int,
     val last_edit_date: Int,
     val link: String,
-    val owner: Owner,
+    val owner: @RawValue Owner,
     val question_id: Int,
     val score: Int,
     val tags: List<String>,

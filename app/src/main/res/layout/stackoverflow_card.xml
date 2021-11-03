@@ -17,22 +17,23 @@
         android:padding="10dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center_vertical"
             android:id="@+id/profile" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="10dp">
+            android:padding="5dp">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/title"
                 android:textColor="@color/black"
-                android:textSize="18sp"
+                android:textSize="17sp"
                 android:textStyle="bold"
                 android:text="title"
                 android:maxLines="2"
@@ -44,7 +45,7 @@
                 android:text="name"
                 android:id="@+id/displayName"
                 android:layout_marginStart="10dp"
-                android:textSize="16sp" />
+                android:textSize="15sp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -52,7 +53,7 @@
                 android:id="@+id/answerCount"
                 android:text="answer count"
                 android:layout_marginStart="10dp"
-                android:textSize="14sp" />
+                android:textSize="13sp" />
 
         </LinearLayout>
 

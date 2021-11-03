@@ -6,8 +6,6 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.flobizhackathon.databinding.CardTagsBinding
-import com.example.flobizhackathon.models.TaggedCards
-import com.example.flobizhackathon.ui.MainActivity
 
 class StackoverflowCardAdapter:
 RecyclerView.Adapter<StackoverflowCardAdapter.CardViewHolder>() {
